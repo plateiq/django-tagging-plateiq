@@ -7,10 +7,10 @@ from setuptools import find_packages
 import tagging
 
 setup(
-    name='django-tagging',
+    name='django-tagging-qubiqle',
     version=tagging.__version__,
 
-    description='Generic tagging application for Django',
+    description='Generic tagging application for Django with support of CharText IDs',
     long_description='\n'.join([open('README.rst').read(),
                                 open('CHANGELOG.txt').read()]),
     keywords='django, tag, tagging',

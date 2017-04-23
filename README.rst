@@ -1,10 +1,10 @@
-==============
-Django Tagging
-==============
+======================
+Django Tagging Qubiqle
+======================
 
 |travis-develop| |coverage-develop|
 
-This is a generic tagging application for Django projects
+This is a generic tagging application for Django projects with added support for CharField IDs. Tailored for PlateIQ
 
 http://django-tagging.readthedocs.org/
 
