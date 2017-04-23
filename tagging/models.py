@@ -506,7 +506,7 @@ class TaggedItem(models.Model):
         verbose_name=_('content type'),
         on_delete=models.CASCADE)
 
-    object_id = models.PositiveIntegerField(
+    object_id = models.TextField(
         _('object id'),
         db_index=True)
 
