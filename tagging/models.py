@@ -32,7 +32,7 @@ class TagManager(models.Manager):
         """
         ctype = ContentType.objects.get_for_model(obj)
         current_tags = list(self.filter(items__content_type__pk=ctype.pk,
-                                        items__object_id=obj.pk))
+                                        items__object_id=str(obj.pk)))
         updated_tag_names = parse_tag_input(tag_names)
         if settings.FORCE_LOWERCASE_TAGS:
             updated_tag_names = [t.lower() for t in updated_tag_names]
@@ -43,7 +43,7 @@ class TagManager(models.Manager):
         if len(tags_for_removal):
             TaggedItem._default_manager.filter(
                 content_type__pk=ctype.pk,
-                object_id=obj.pk,
+                object_id=str(obj.pk),
                 tag__in=tags_for_removal).delete()
         # Add new tags
         current_tag_names = [tag.name for tag in current_tags]
@@ -69,7 +69,7 @@ class TagManager(models.Manager):
         tag, created = self.get_or_create(name=tag_name)
         ctype = ContentType.objects.get_for_model(obj)
         TaggedItem._default_manager.get_or_create(
-            tag=tag, content_type=ctype, object_id=obj.pk)
+            tag=tag, content_type=ctype, object_id=str(obj.pk))
 
     def get_for_object(self, obj):
         """
@@ -78,7 +78,7 @@ class TagManager(models.Manager):
         """
         ctype = ContentType.objects.get_for_model(obj)
         return self.filter(items__content_type__pk=ctype.pk,
-                           items__object_id=obj.pk)
+                           items__object_id=str(obj.pk))
 
     def _get_usage(self, model, counts=False, min_count=None,
                    extra_joins=None, extra_criteria=None, params=None):
@@ -451,7 +451,7 @@ class TaggedItemManager(models.Manager):
         }
 
         cursor = connection.cursor()
-        params = [obj.pk]
+        params = [str(obj.pk)]
         if num is not None:
             params.append(num)
         cursor.execute(query, params)
