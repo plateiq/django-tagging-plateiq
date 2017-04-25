@@ -90,7 +90,7 @@ class TagManager(models.Manager):
             counts = True
 
         model_table = qn(model._meta.db_table)
-        model_pk = '%s.%s' % (model_table, qn(model._meta.pk.column))
+        model_pk = '%s.%s::text' % (model_table, qn(model._meta.pk.column))
         query = """
         SELECT DISTINCT %(tag)s.id, %(tag)s.name%(count_sql)s
         FROM
@@ -316,9 +316,9 @@ class TaggedItemManager(models.Manager):
             where=[
                 '%s.content_type_id = %%s' % tagged_item_table,
                 '%s.tag_id = %%s' % tagged_item_table,
-                '%s.%s = %s.object_id' % (qn(model._meta.db_table),
-                                          qn(model._meta.pk.column),
-                                          tagged_item_table)
+                '%s.%s::text = %s.object_id' % (qn(model._meta.db_table),
+                                                qn(model._meta.pk.column),
+                                                tagged_item_table)
             ],
             params=[content_type.pk, tag.pk],
         )
@@ -346,7 +346,7 @@ class TaggedItemManager(models.Manager):
           AND %(model_pk)s = %(tagged_item)s.object_id
         GROUP BY %(model_pk)s
         HAVING COUNT(%(model_pk)s) = %(tag_count)s""" % {
-            'model_pk': '%s.%s' % (model_table, qn(model._meta.pk.column)),
+            'model_pk': '%s.%s::text' % (model_table, qn(model._meta.pk.column)),
             'model': model_table,
             'tagged_item': qn(self.model._meta.db_table),
             'content_type_id': ContentType.objects.get_for_model(model).pk,
@@ -384,7 +384,7 @@ class TaggedItemManager(models.Manager):
           AND %(tagged_item)s.tag_id IN (%(tag_id_placeholders)s)
           AND %(model_pk)s = %(tagged_item)s.object_id
         GROUP BY %(model_pk)s""" % {
-            'model_pk': '%s.%s' % (model_table, qn(model._meta.pk.column)),
+            'model_pk': '%s.%s::text' % (model_table, qn(model._meta.pk.column)),
             'model': model_table,
             'tagged_item': qn(self.model._meta.db_table),
             'content_type_id': ContentType.objects.get_for_model(model).pk,
@@ -438,7 +438,7 @@ class TaggedItemManager(models.Manager):
             tagging_table = qn(self.model._meta.get_field(
                 'tag').rel.to._meta.db_table)
         query = query % {
-            'model_pk': '%s.%s' % (model_table, qn(model._meta.pk.column)),
+            'model_pk': '%s.%s::text' % (model_table, qn(model._meta.pk.column)),
             'count': qn('count'),
             'model': model_table,
             'tagged_item': qn(self.model._meta.db_table),
