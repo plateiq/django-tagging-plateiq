@@ -515,6 +515,9 @@ class TaggedItem(models.Model):
 
     objects = TaggedItemManager()
 
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True, null=True)
+    created_user = models.IntegerField(null=True, blank=True)
+
     class Meta:
         # Enforce unique tag association per object
         unique_together = (('tag', 'content_type', 'object_id'),)
