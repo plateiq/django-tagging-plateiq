@@ -6,10 +6,10 @@ Django Tagging PlateIQ
 
 This is a generic tagging application for Django projects with added support for CharField IDs. Tailored for PlateIQ.
 
-http://django-tagging.readthedocs.org/
+https://django-tagging.readthedocs.io/
 
-Note that this application requires Python 2.7 or later, and Django
-1.8 or later. You can obtain Python from http://www.python.org/ and
+Note that this application version requires Python 3.5 or later, and Django
+1.11 or later. You can obtain Python from http://www.python.org/ and
 Django from http://www.djangoproject.com/.
 
 .. |travis-develop| image:: https://travis-ci.org/Fantomas42/django-tagging.png?branch=develop
