@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tagging', '0002_on_delete'),
+        ('tagging', '0003_adapt_max_tag_length'),
     ]
 
     operations = [
