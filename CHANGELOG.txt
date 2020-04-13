@@ -2,6 +2,11 @@
 Django Tagging Changelog
 ========================
 
+Version 0.5.1, 13th April 2020:
+-------------------------------
+
+* Fix migration conflicts
+
 Version 0.5.0, 6th March 2020:
 ------------------------------
 
