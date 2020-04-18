@@ -11,6 +11,15 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.AlterField(
+            model_name='tag',
+            name='name',
+            field=models.CharField(
+                unique=True,
+                max_length=getattr(settings, 'MAX_TAG_LENGTH', 50),
+                verbose_name='name',
+                db_index=True),
+        ),
         migrations.AddField(
             model_name='taggeditem',
             name='created_at',
